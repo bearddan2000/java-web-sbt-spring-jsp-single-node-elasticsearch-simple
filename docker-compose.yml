@@ -1,0 +1,19 @@
+version: '3'
+services:
+  java-srv:
+    build:
+      context: java-srv
+    ports:
+      - 80:8080
+    depends_on:
+      - db
+    links:
+      - "db:db"
+
+  db:
+    image: elasticsearch:7.12.1
+    ports:
+     - 9200:9200
+     - 9300:9300
+    environment:
+      - discovery.type=single-node
